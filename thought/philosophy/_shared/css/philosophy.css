@@ -1,0 +1,83 @@
+/* philosophy 板块共享样式 */
+@font-face { font-family: 'CrimsonPro'; src: url('../fonts/CrimsonPro-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'CrimsonPro'; src: url('../fonts/CrimsonPro-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'CrimsonPro'; src: url('../fonts/CrimsonPro-Italic.ttf') format('truetype'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'InstrumentSerif'; src: url('../fonts/InstrumentSerif-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'InstrumentSerif'; src: url('../fonts/InstrumentSerif-Italic.ttf') format('truetype'); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --bg: #F5F1E8; --bg2: #EBE4D2; --ink: #23201A; --muted: #7A6F5C; --rule: #D8CFB8;
+  --accent: #2F4858; --accent2: #9C6B3F;
+  --serif: 'CrimsonPro', 'Noto Serif SC', 'Source Han Serif SC', 'STSong', 'Songti SC', serif;
+  --cn-serif: 'Noto Serif SC', 'Source Han Serif SC', 'STSong', 'STZhongsong', 'SimSun', 'Songti SC', serif;
+  --display: 'InstrumentSerif', 'CrimsonPro', 'Noto Serif SC', serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--cn-serif); font-size: 17px; line-height: 1.85;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent2); }
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 28px; }
+
+/* ===== 顶栏 ===== */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap; padding: 22px 28px; max-width: 916px; margin: 0 auto;
+  border-bottom: 1px solid var(--rule);
+}
+.topbar .crumb { font-size: 14px; color: var(--muted); letter-spacing: 0.04em; }
+.topbar .crumb a { color: var(--muted); }
+.topbar .crumb a:hover { color: var(--accent); }
+.topbar .brand { font-family: var(--display); font-style: italic; letter-spacing: 0.1em; color: var(--accent2); font-size: 15px; }
+
+/* ===== 命题仪表 (独立论述页头) ===== */
+.prop-hero {
+  padding: 76px 28px 44px; text-align: center; position: relative; overflow: hidden;
+}
+.prop-hero::before {
+  content: ''; position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
+  width: 300px; height: 300px; border: 1px solid var(--rule); border-radius: 50%; opacity: .5;
+}
+.prop-kicker { font-family: var(--display); font-style: italic; font-size: 15px; letter-spacing: .3em; color: var(--accent2); position: relative; }
+.prop-hero h1 { font-family: var(--cn-serif); font-weight: 700; font-size: 44px; line-height: 1.3; letter-spacing: .05em; margin: 22px 0 18px; position: relative; }
+.prop-quote-hero { font-family: var(--display); font-style: italic; font-size: 21px; color: var(--accent); position: relative; }
+.prop-meta-hero { display: flex; gap: 26px; justify-content: center; flex-wrap: wrap; margin-top: 30px; font-size: 14px; color: var(--muted); position: relative; }
+.prop-meta-hero b { color: var(--ink); font-weight: 600; }
+
+/* ===== 正文 ===== */
+.article { padding: 20px 28px 70px; }
+.article.lede p:first-of-type::first-letter { font-family: var(--display); font-size: 62px; line-height: 1; float: left; padding: 6px 12px 0 0; color: var(--accent2); }
+.article h2 { font-family: var(--cn-serif); font-size: 24px; font-weight: 700; margin: 44px 0 14px; letter-spacing: .03em; }
+.article h3 { font-family: var(--cn-serif); font-size: 19px; font-weight: 700; margin: 30px 0 10px; color: var(--accent); }
+.article p { margin-bottom: 18px; }
+.article blockquote { margin: 26px 0; padding: 18px 24px; border-left: 3px solid var(--accent2); background: var(--bg2); font-family: var(--display); font-style: italic; font-size: 18px; color: var(--accent); }
+.article .callout { margin: 26px 0; padding: 20px 24px; background: var(--bg2); border: 1px solid var(--rule); border-radius: 6px; }
+.article .callout .t { font-family: var(--cn-serif); font-weight: 700; margin-bottom: 8px; color: var(--accent); letter-spacing: .06em; }
+
+/* ===== 关联命题 ===== */
+.rel-group { margin-top: 48px; border-top: 1px solid var(--rule); padding-top: 30px; }
+.rel-group .rel-title { font-family: var(--cn-serif); font-size: 20px; font-weight: 700; margin-bottom: 18px; letter-spacing: .08em; }
+.rel-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+.rel-card { display: block; padding: 18px 20px; background: var(--bg2); border: 1px solid var(--rule); border-radius: 6px; transition: all .15s ease; }
+.rel-card:hover { border-color: var(--accent2); background: #EFE8D6; transform: translateY(-2px); }
+.rel-card .num { font-family: var(--display); font-style: italic; color: var(--accent2); font-size: 14px; display: block; margin-bottom: 6px; }
+.rel-card .name { font-family: var(--cn-serif); font-weight: 700; font-size: 17px; margin-bottom: 4px; }
+
+/* ===== 返回 & 页脚 ===== */
+.foot-nav { max-width: 860px; margin: 0 auto; padding: 0 28px 50px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 14px; }
+.foot-nav a { color: var(--accent); }
+.foot-nav a:hover { color: var(--accent2); }
+footer { border-top: 1px solid var(--rule); padding: 30px 28px 46px; }
+footer .foot { max-width: 860px; margin: 0 auto; font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .prop-hero { padding: 56px 20px 36px; }
+  .prop-hero h1 { font-size: 32px; }
+  .wrap { padding: 0 20px; }
+}
