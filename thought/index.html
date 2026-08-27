@@ -2,14 +2,255 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>Thought Reports</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thought · 思想报告文库</title>
+<style>
+@font-face{font-family:'BricolageGrotesque';src:url('./agent-harness-library/_shared/fonts/BricolageGrotesque-Regular.ttf') format('truetype');font-weight:400;}
+@font-face{font-family:'BricolageGrotesque';src:url('./agent-harness-library/_shared/fonts/BricolageGrotesque-Bold.ttf') format('truetype');font-weight:700;}
+@font-face{font-family:'InstrumentSans';src:url('./agent-harness-library/_shared/fonts/InstrumentSans-Regular.ttf') format('truetype');font-weight:400;}
+@font-face{font-family:'InstrumentSans';src:url('./agent-harness-library/_shared/fonts/InstrumentSans-Bold.ttf') format('truetype');font-weight:700;}
+@font-face{font-family:'JetBrainsMono';src:url('./agent-harness-library/_shared/fonts/JetBrainsMono-Regular.ttf') format('truetype');font-weight:400;}
+@font-face{font-family:'JetBrainsMono';src:url('./agent-harness-library/_shared/fonts/JetBrainsMono-Bold.ttf') format('truetype');font-weight:700;}
+:root{
+  --bg:#f4f6fb;--bg2:#ffffff;--ink:#141a2e;--muted:#5d6a83;--rule:#e4e8f1;
+  --accent:#4f46e5;--accent2:#0891b2;--accent3:#c2448f;
+  --radius:16px;
+  --shadow:0 1px 3px rgba(20,26,46,.05),0 12px 32px rgba(20,26,46,.06);
+  --shadow-lg:0 4px 16px rgba(20,26,46,.06),0 20px 48px rgba(20,26,46,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'InstrumentSans',system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+.container{max-width:1060px;margin:0 auto;padding:0 24px;}
+/* ---------- Hero ---------- */
+.hero{position:relative;padding:96px 0 72px;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(640px 360px at 10% -10%,rgba(79,70,229,.14),transparent 60%),
+  radial-gradient(560px 320px at 92% 8%,rgba(8,145,178,.12),transparent 60%),
+  radial-gradient(480px 300px at 50% 120%,rgba(194,68,143,.08),transparent 60%);pointer-events:none;}
+.hero .container{position:relative;}
+.eyebrow{font-family:'JetBrainsMono',monospace;font-size:.78rem;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:20px;}
+.hero h1{font-family:'BricolageGrotesque',sans-serif;font-size:clamp(2.4rem,6vw,4rem);line-height:1.1;font-weight:700;letter-spacing:-.015em;}
+.hero h1 .hl{background:linear-gradient(120deg,var(--accent),var(--accent2) 55%,var(--accent3));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hero .sub{max-width:680px;margin-top:22px;font-size:1.12rem;color:var(--muted);}
+.hero .meta{display:flex;gap:30px;flex-wrap:wrap;margin-top:34px;font-size:.85rem;color:var(--muted);}
+.hero .meta b{color:var(--ink);font-family:'JetBrainsMono',monospace;}
+/* ---------- Collections ---------- */
+.collections{padding:8px 0 80px;}
+.col-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:26px;}
+.col-head h2{font-family:'BricolageGrotesque',sans-serif;font-size:1.65rem;font-weight:700;letter-spacing:-.01em;}
+.col-head h2 .en{display:block;font-family:'JetBrainsMono',monospace;font-size:.72rem;color:var(--accent);letter-spacing:.22em;text-transform:uppercase;font-weight:400;margin-bottom:8px;}
+.col-head .count{font-family:'JetBrainsMono',monospace;font-size:.85rem;color:var(--muted);}
+.col-head .count b{color:var(--accent);}
+.grid{display:grid;gap:20px;}
+/* ---------- Cards ---------- */
+.card{background:var(--bg2);border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:transparent;transition:background .18s ease;}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:#d7ddf0;}
+.card:hover::before{background:linear-gradient(180deg,var(--accent),var(--accent2));}
+.card .tag{font-family:'JetBrainsMono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+.card h3{font-family:'BricolageGrotesque',sans-serif;font-size:1.28rem;font-weight:700;line-height:1.3;}
+.card p{font-size:.92rem;color:var(--muted);margin-top:10px;flex:1;}
+.card .go{margin-top:18px;font-size:.88rem;font-weight:700;color:var(--accent);display:inline-flex;align-items:center;gap:6px;}
+.card .go::after{content:'→';transition:transform .18s ease;}
+.card:hover .go::after{transform:translateX(4px);}
+.card.large{grid-column:1/-1;}
+/* ---------- Series group (philosophy / agent) ---------- */
+.series{grid-template-columns:repeat(auto-fit,minmax(320px,1fr));}
+.series .card:nth-child(1){grid-column:1/-1;}
+.tag.p2{color:var(--accent2);}
+.tag.harn{color:var(--accent3);}
+/* ---------- Footer ---------- */
+footer{border-top:1px solid var(--rule);background:var(--bg2);padding:34px 0;}
+footer .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);}
+footer .foot .brand{font-family:'BricolageGrotesque',sans-serif;font-weight:700;color:var(--ink);}
+@media(max-width:640px){.hero{padding:64px 0 48px;}.grid{gap:16px;}.card{padding:22px;}}
+</style>
 </head>
 <body>
-<h1>Thought Reports</h1>
-<ul>
-<li><a href="意识形态的诞生.html">意识形态的诞生</a></li>
-<li><a href="philosophical-propositions/philosophical-propositions.html">Philosophical Propositions</a></li>
-<li><a href="agent-harness-library/index.html">Agent Harness 文档库（大模型厂商 Harness 工程软件深度拆解）</a></li>
-</ul>
+
+<div class="hero">
+  <div class="container">
+    <div class="eyebrow">Thought · 思想报告文库</div>
+    <h1>思想的 <span class="hl">栖息地</span></h1>
+    <p class="sub">一份持续更新的研究性文献库：从概念史的宏大叙事，到命题式的哲学思辨，再到大模型 Agent Harness 工程的深度拆解。每一篇都标注来源、目的在于思辨，而非断言。</p>
+    <div class="meta">
+      <span>系列：<b>3</b></span>
+      <span>章节：<b>23</b></span>
+      <span>跨度：<b>概念 · 思辨 · 工程</b></span>
+      <span>持续：<b>更新中</b></span>
+    </div>
+  </div>
+</div>
+
+<div class="collections">
+  <div class="container">
+
+    <div class="col-head">
+      <h2><span class="en">Essay</span>单篇精品</h2>
+      <span class="count">共 <b>1</b> 篇</span>
+    </div>
+    <div class="grid">
+      <a class="card" href="意识形态的诞生.html">
+        <span class="tag">Essay · 概念史</span>
+        <h3>意识形态的诞生</h3>
+        <p>从特拉西的「观念学」到齐泽克的「幻象」——追踪一个概念两百年的四次意义重构：拿破仑的翻转、马克思的虚假意识、葛兰西与阿尔都塞的实践性结构，以及精神分析的无意识纵深。</p>
+        <span class="go">阅读全文</span>
+      </a>
+    </div>
+
+    <div class="col-head" style="margin-top:56px;">
+      <h2><span class="en">Propositions</span>命题式思辨</h2>
+      <span class="count">共 <b>12</b> 个命题</span>
+    </div>
+    <div class="grid series">
+      <a class="card" href="philosophical-propositions/philosophical-propositions.html">
+        <span class="tag p2">Philosophia Vitae · 十二命题</span>
+        <h3>十二命题：贯穿人生关键课题的哲学思辨</h3>
+        <p>从苏格拉底到王阳明，从赫拉克利特到庄子——十二个穿越时空的命题，各自回应人生中无可回避的课题：自我、自由、苦难、无常、关系、有限、行动、放下、怀疑、幸福与超越。</p>
+        <span class="go">进入命题</span>
+      </a>
+      <a class="card" href="philosophical-propositions/philosophical-propositions.html#p01">
+        <span class="tag p2">01</span>
+        <h3>审视先于生活</h3>
+        <p>未经审视的人生不值得过。</p>
+        <span class="go">展开</span>
+      </a>
+      <a class="card" href="philosophical-propositions/philosophical-propositions.html#p02">
+        <span class="tag p2">02</span>
+        <h3>存在先于本质</h3>
+        <p>人首先存在，然后定义自己。</p>
+        <span class="go">展开</span>
+      </a>
+      <a class="card" href="philosophical-propositions/philosophical-propositions.html#p03">
+        <span class="tag p2">03</span>
+        <h3>万物皆流</h3>
+        <p>人不能两次踏入同一条河流。</p>
+        <span class="go">展开</span>
+      </a>
+      <a class="card" href="philosophical-propositions/philosophical-propositions.html#p04">
+        <span class="tag p2">04</span>
+        <h3>意义生于苦难</h3>
+        <p>人最不可剥夺的自由是态度。</p>
+        <span class="go">展开</span>
+      </a>
+      <a class="card" href="philosophical-propositions/philosophical-propositions.html#p05">
+        <span class="tag p2">05</span>
+        <h3>中道即美德</h3>
+        <p>美德是在两极之间的黄金中道。</p>
+        <span class="go">展开</span>
+      </a>
+      <a class="card" href="philosophical-propositions/philosophical-propositions.html#p06">
+        <span class="tag p2">06</span>
+        <h3>他者即镜</h3>
+        <p>自我只有在与他者的面对中显现。</p>
+        <span class="go">展开</span>
+      </a>
+      <a class="card" href="philosophical-propositions/philosophical-propositions.html#p07">
+        <span class="tag p2">07</span>
+        <h3>向死而生</h3>
+        <p>向死而在，才能获得本真的生存。</p>
+        <span class="go">展开</span>
+      </a>
+      <a class="card" href="philosophical-propositions/philosophical-propositions.html#p08">
+        <span class="tag p2">08</span>
+        <h3>知行合一</h3>
+        <p>知而不行，只是未知。</p>
+        <span class="go">展开</span>
+      </a>
+      <a class="card" href="philosophical-propositions/philosophical-propositions.html#p09">
+        <span class="tag p2">09</span>
+        <h3>无为而无不为</h3>
+        <p>以顺应自然之道达致无所不为之境。</p>
+        <span class="go">展开</span>
+      </a>
+      <a class="card" href="philosophical-propositions/philosophical-propositions.html#p10">
+        <span class="tag p2">10</span>
+        <h3>怀疑即起点</h3>
+        <p>我思故我在，怀疑是自明性的起点。</p>
+        <span class="go">展开</span>
+      </a>
+      <a class="card" href="philosophical-propositions/philosophical-propositions.html#p11">
+        <span class="tag p2">11</span>
+        <h3>德性即幸福</h3>
+        <p>幸福不是享乐的堆砌，而是德性的实践。</p>
+        <span class="go">展开</span>
+      </a>
+      <a class="card" href="philosophical-propositions/philosophical-propositions.html#p12">
+        <span class="tag p2">12</span>
+        <h3>万物齐一</h3>
+        <p>齐物论，万物在道中本无差别。</p>
+        <span class="go">展开</span>
+      </a>
+    </div>
+
+    <div class="col-head" style="margin-top:56px;">
+      <h2><span class="en">Engineering</span>Agent Harness 文档库</h2>
+      <span class="count">共 <b>7</b> 章</span>
+    </div>
+    <div class="grid series">
+      <a class="card" href="agent-harness-library/index.html">
+        <span class="tag harn">Agent Harness Engineering · 2026</span>
+        <h3>大模型厂商 Agent Harness 工程软件文档库</h3>
+        <p>围绕市面主流大模型厂商的 harness 工程软件（Codex、Claude Code、DeepSeek Harness、OpenCode 等），逐家拆解 agent loop 的设计与实现：循环如何运转、工具如何编排、上下文如何管理、权限如何控制，以及——为什么这样设计。</p>
+        <span class="go">进入文档库</span>
+      </a>
+      <a class="card" href="agent-harness-library/01-codex.html">
+        <span class="tag harn">Deep Dive · 01</span>
+        <h3>OpenAI Codex</h3>
+        <p>一个运行时、多端复用：App Server、SDK、沙箱与审批、Memories、AGENTS.md。</p>
+        <span class="go">进入拆解</span>
+      </a>
+      <a class="card" href="agent-harness-library/02-claude-code.html">
+        <span class="tag harn">Deep Dive · 02</span>
+        <h3>Anthropic Claude Code</h3>
+        <p>先探索、再计划、后编码：CLAUDE.md、auto-compact、权限模式、hooks、Task 子代理。</p>
+        <span class="go">进入拆解</span>
+      </a>
+      <a class="card" href="agent-harness-library/03-deepseek-harness.html">
+        <span class="tag harn">Deep Dive · 03</span>
+        <h3>DeepSeek Harness</h3>
+        <p>Everything is a plugin 的开源 agent 组装运行时，基于 Cordis 内核。</p>
+        <span class="go">进入拆解</span>
+      </a>
+      <a class="card" href="agent-harness-library/04-opencode.html">
+        <span class="tag harn">Deep Dive · 04</span>
+        <h3>OpenCode（SST）</h3>
+        <p>为终端而生：模型无关、LSP 深度集成、plan/build 双模式，75+ 模型提供商。</p>
+        <span class="go">进入拆解</span>
+      </a>
+      <a class="card" href="agent-harness-library/05-open-source.html">
+        <span class="tag harn">Overview · 05</span>
+        <h3>开源生态补充</h3>
+        <p>Cline 审批优先、Aider repo map、OpenHands 平台化、Goose MCP-first、Roo Code 模式团队。</p>
+        <span class="go">进入概览</span>
+      </a>
+      <a class="card" href="agent-harness-library/06-commercial.html">
+        <span class="tag harn">Overview · 06</span>
+        <h3>商业产品补充</h3>
+        <p>Cursor、Windsurf Cascade Flow、Devin、Gemini CLI、Copilot 双 agent 形态。</p>
+        <span class="go">进入概览</span>
+      </a>
+      <a class="card" href="agent-harness-library/07-comparison.html">
+        <span class="tag harn">Analysis · 07</span>
+        <h3>横向对比与设计哲学</h3>
+        <p>agent loop 设计对比矩阵、四家核心 harness 设计哲学对照、行业演进趋势与结论。</p>
+        <span class="go">进入对比</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="foot">
+      <span class="brand">Thought · 思想报告文库</span>
+      <span>本库为研究性资料汇编，内容基于公开来源整理，版权归原作者与厂商所有。</span>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
